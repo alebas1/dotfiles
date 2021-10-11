@@ -23,8 +23,8 @@ getcolors
 workspaces() {
 	name=1
 	for monitor in `bspc query -M`; do
-		#bspc monitor ${monitor} -n "$name" -d 'I' 'II' 'III' 'IV' 'V' 'VI' 'VII' 'VIII'
-		bspc monitor ${monitor} -n "$name" -d '' '' '' '' '' '' '' ''
+		bspc monitor ${monitor} -n "$name" -d 1 2 3 4 5 6 7 8 9
+		# bspc monitor ${monitor} -n "$name" -d '' '' '' '' '' '' '' ''
 		let name++
 	done
 }
@@ -79,6 +79,6 @@ bash $HOME/.fehbg
 
 # Start bspwm scripts
 bsp_colors
-# bsp_bar
+bsp_bar
 # bsp_comp
 # bsp_float &
