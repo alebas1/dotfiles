@@ -1,6 +1,7 @@
 #! /bin/sh
 
 DIR="$HOME/.config/bspwm"
+CONF="$HOME/.config"
 
 getcolors () {
 	FOREGROUND="$(xrdb -query | grep 'foreground:'| awk '{print $NF}')"
@@ -48,11 +49,35 @@ bspbar() {
 	EOF
 }
 
+bspkitty() {
+	cat > $CONF/kitty/colors.conf <<- EOF	
+	foreground ${FOREGROUND}
+	background ${BACKGROUND}
+	color0 ${BLACK}
+	color1 ${RED}
+	color2 ${GREEN}
+	color3 ${YELLOW}
+	color4 ${BLUE}
+	color5 ${MAGENTA}
+	color6 ${CYAN}
+	color7 ${WHITE}
+	color8 ${ALTBLACK}
+	color9 ${ALTRED}
+	color10 ${ALTGREEN}
+	color11 ${ALTYELLOW}
+	color12 ${ALTBLUE}
+	color13 ${ALTMAGENTA}
+	color14 ${ALTCYAN}
+	color15 ${ALTWHITE}
+	EOF
+}
+
 # TODO: term
 # TODO: rofi
 
 main() {
     getcolors
     bspbar
+	bspkitty
 }
 main
