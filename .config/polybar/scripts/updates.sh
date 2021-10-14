@@ -1,26 +1,19 @@
 #! /bin/sh
 
-BAR_ICON=""
-NOTIFY_ICON=""
+if ! UPDATES_PACMAN=$(checkupdates 2> /dev/null | wc -l ); then
+    UPDATES_PACMAN=0
+fi
 
-get_total_updates() { UPDATES=$(checkupdates 2>/dev/null | wc -l); }
+if ! UPDATES_AUR=$(yay -Qum 2> /dev/null | wc -l); then
+# if ! UPDATES_AUR=$(paru -Qum 2> /dev/null | wc -l); then
+    UPDATES_AUR=0
+fi
+# UPDATES_AUR=0
+
+get_total_updates() { UPDATES=$((UPDATES_PACMAN + UPDATES_AUR)); }
 
 while true; do
     get_total_updates
-
-    # notify user of updates
-    if hash notify-send &>/dev/null; then
-        if (( UPDATES > 50 )); then
-            notify-send -u critical -i $NOTIFY_ICON \
-                "You really need to update!!" "$UPDATES New packages"
-        elif (( UPDATES > 25 )); then
-            notify-send -u normal -i $NOTIFY_ICON \
-                "You should update soon" "$UPDATES New packages"
-        elif (( UPDATES > 2 )); then
-            notify-send -u low -i $NOTIFY_ICON \
-                "$UPDATES New packages"
-        fi
-    fi
 
     # when there are updates available
     # every 200 seconds another check for updates is done
@@ -31,7 +24,6 @@ while true; do
     done
 
     # when no updates are available, use a longer loop, this saves on CPU
-    # and network uptime, only checking once every 30 min for new updates
     while (( UPDATES == 0 )); do
         echo "0"
         sleep 1800
