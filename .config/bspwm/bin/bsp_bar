@@ -1,7 +1,7 @@
 #! /bin/sh
 
 ## Files and Directories
-DIR="$HOME/.config/bspwm/polybar"
+DIR="$HOME/.config/polybar"
 SFILE="$DIR/system.ini"
 
 ## Get system variable values for various modules

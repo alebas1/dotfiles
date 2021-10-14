@@ -26,7 +26,7 @@ getcolors () {
 }
 
 bspbar() {
-	cat > $DIR/polybar/colors.ini <<- EOF	
+	cat > $CONF/polybar/colors.ini <<- EOF	
 	[color]
 	FOREGROUND = ${FOREGROUND}
 	BACKGROUND = ${BACKGROUND}
